@@ -54,7 +54,7 @@
 	<body>
 		<div class="data-wrapper">
 			<div class="table-wrapper">
-				<table>
+				<table cellspacing="0">
 					<tr>
 						<th>Type</th>
 						<th>ID</th>
