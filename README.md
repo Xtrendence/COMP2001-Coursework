@@ -15,3 +15,9 @@ A linked data application written in PHP that displays a dataset from [Plymouth 
 - **data.php**, which displays the JSON data in a human readable format (in this case, an HTML table, and an optional modern card-based layout).
 
 - **fetch.php**, which simply outputs the JSON data in a JSON-LD format. Both browsers and REST clients can use a GET request to fetch the data.
+
+### Credits
+
+Plymouth DATA Place: https://plymouth.thedata.place/dataset
+
+Font Awesome: https://fontawesome.com/
