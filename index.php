@@ -37,7 +37,7 @@
 			</div>
 			<div class="card">
 				<div class="content">
-					<span class="title">View Dataset</span>
+					<span class="title">Formatted Dataset</span>
 					<div class="button-container">
 						<a href="./data.php"><button>Table</button></a>
 					</div>
