@@ -25,7 +25,7 @@
 			$geometryLatitude = $coordinates[0];
 			$geometryLongitude = $coordinates[1];
 
-			$html += '<div class="entry">' + $name + '</div>';
+			$html .= '<div class="entry">' . $name . '</div>';
 		}
 		return $html;
 	}
@@ -52,6 +52,8 @@
 		<title>View Dataset</title>
 	</head>
 	<body>
-
+		<div class="data-wrapper">
+			<?php echo displayData(); ?>
+		</div>
 	</body>
 </html>
