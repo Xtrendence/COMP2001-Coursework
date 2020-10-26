@@ -1,10 +1,23 @@
 <?php
-	function displayData($view) {
-		$html = "";
+	function getData() {
 		$file = "./dataset.json";
 		$content = file_get_contents($file);
-		$libraries = json_decode($content, true);
-		$features = $libraries["features"];
+		return json_decode($content, true);
+	}
+	function displayInfo() {
+		$data = getData();
+		$type = $data["type"];
+		$name = $data["name"];
+		$crs = $data["crs"];
+		$crsType = $crs["type"];
+		$crsProperties = $crs["properties"];
+		$crsPropertyName = $crsProperties["name"];
+		return '<tr><td>' . $type . '</td><td>' . $name . '</td><td>' . $crsType . '</td><td>' . $crsPropertyName . '</td></tr>';
+	}
+	function displayFeatures($view) {
+		$html = "";
+		$data = getData();
+		$features = $data["features"];
 		foreach($features as $feature) {
 			$type = $feature["type"];
 			$properties = $feature["properties"];
@@ -26,7 +39,7 @@
 			$geometryLongitude = $coordinates[1];
 
 			if($view === "table") {
-				$html .= '<tr class="entry"><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
+				$html .= '<tr><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
 			}
 			else {
 
@@ -58,8 +71,21 @@
 	</head>
 	<body>
 		<div class="buttons-wrapper">
+			<button id="dataset-info">Dataset Info</button>
 			<button class="active" id="table-view">Table View</button>
 			<button id="card-view">Card View</button>
+		</div>
+		<div class="overlay hidden"></div>
+		<div class="dataset-info-wrapper hidden">
+			<table cellspacing="0">
+				<tr>
+					<th>Type</th>
+					<th>Name</th>
+					<th>CRS Type</th>
+					<th>CRS Property Name</th>
+				</tr>
+				<?php echo displayInfo(); ?>
+			</table>
 		</div>
 		<div class="data-wrapper">
 			<div class="table-wrapper">
@@ -79,11 +105,11 @@
 						<th>Geometry Latitude</th>
 						<th>Geometry Longitude</th>
 					</tr>
-					<?php echo displayData("table"); ?>
+					<?php echo displayFeatures("table"); ?>
 				</table>
 			</div>
 			<div class="card-wrapper hidden">
-				<?php echo displayData("card"); ?>
+				<?php echo displayFeatures("card"); ?>
 			</div>
 		</div>
 	</body>
