@@ -52,6 +52,10 @@
 		<title>View Dataset</title>
 	</head>
 	<body>
+		<div class="buttons-wrapper">
+			<button id="table-view">Table View</button>
+			<button id="card-view">Card View</button>
+		</div>
 		<div class="data-wrapper">
 			<div class="table-wrapper">
 				<table cellspacing="0">
