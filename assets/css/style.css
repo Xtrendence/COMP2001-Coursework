@@ -54,10 +54,113 @@ a {
 	background:rgb(210,210,210);
 }
 
+.navbar {
+	position:relative;
+	display:block;
+	width:100%;
+	height:80px;
+	background:rgb(220,220,220);
+}
+.navbar span {
+	line-height:80px;
+	padding-left:32px;
+	font-size:32px;
+	font-weight:bold;
+	color:var(--accent-color);
+}
+.navbar svg {
+	height:52px;
+	width:52px;
+	padding:14px;
+	position:absolute;
+	top:0;
+	right:0;
+	fill:var(--accent-color);
+}
+
+.main-wrapper {
+	position:absolute;
+	top:80px;
+	left:0;
+	display:block;
+	font-size:0;
+	text-align:center;
+	height:calc(100% - 80px);
+	width:100%;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	scroll-behavior:smooth;
+	-webkit-overflow-scrolling:touch;
+}
+.main-wrapper .card {
+	width:calc((100% / 3) - 30px);
+	margin:20px 0 20px 0;
+	height:200px;
+	display:inline-block;
+	background:rgb(220,220,220);
+	vertical-align:top;
+	border-radius:10px;
+	overflow:hidden;
+}
+.main-wrapper .card:nth-of-type(2) {
+	margin:20px;
+}
+.main-wrapper .card .content {
+	width:calc(100% - 40px);
+	height:calc(100% - 40px);
+	padding:20px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	scroll-behavior:smooth;
+	-webkit-overflow-scrolling:touch;
+}
+.main-wrapper .card span {
+	font-size:16px;
+	display:block;
+}
+.main-wrapper .card .title {
+	font-size:20px;
+	font-weight:bold;
+	margin-bottom:10px;
+}
+.main-wrapper .card .button-container {
+	display:block;
+	text-align:center;
+	margin:14px auto 10px auto;
+}
+.main-wrapper .card button {
+	height:40px;
+	padding:0 10px 0 10px;
+	width:auto;
+	font-size:18px;
+	font-weight:bold;
+	color:rgb(255,255,255);
+	background:var(--accent-color);
+	border-radius:10px;
+	transition:transform 0.25s;
+	cursor:pointer;
+	display:inline-block;
+}
+.main-wrapper .card button:hover {
+	transform:scale(0.95);
+}
+
 .buttons-wrapper {
 	margin:20px auto 20px auto;
 	text-align:center;
 	font-size:0;
+}
+.buttons-wrapper svg {
+	position:absolute;
+	top:20px;
+	left:30px;
+	width:40px;
+	height:40px;
+	transition:transform 0.25s;
+	fill:var(--accent-color);
+}
+.buttons-wrapper svg:hover {
+	transform:scale(0.95);
 }
 .buttons-wrapper button {
 	height:40px;
@@ -129,7 +232,7 @@ th {
 	background:rgb(220,220,220);
 }
 
-.card-wrapper {
+.data-wrapper .card-wrapper {
 	width:calc(100% - 40px);
 	height:calc(100% - 40px);
 	padding:20px;
@@ -141,7 +244,7 @@ th {
 	font-size:0;
 	text-align:center;
 }
-.card {
+.data-wrapper .card-wrapper .card {
 	background:rgb(255,255,255);
 	box-shadow:var(--shadow-darker);
 	display:inline-block;
@@ -153,15 +256,15 @@ th {
 	min-height:250px;
 	text-align:left;
 }
-.card:nth-child(3n + 3) {
+.data-wrapper .card-wrapper .card:nth-child(3n + 3) {
 	margin-right:0;
 }
-.card span {
+.data-wrapper .card-wrapper .card span {
 	display:block;
 	font-size:16px;
 	padding-left:10px;
 }
-.card .name {
+.data-wrapper .card-wrapper .card .name {
 	font-size:18px;
 	font-weight:bold;
 }
