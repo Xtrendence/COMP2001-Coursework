@@ -128,3 +128,40 @@ th, td {
 th {
 	background:rgb(220,220,220);
 }
+
+.card-wrapper {
+	width:calc(100% - 40px);
+	height:calc(100% - 40px);
+	padding:20px;
+	overflow-x:scroll;
+	overflow-y:scroll;
+	scroll-behavior:smooth;
+	-webkit-overflow-scrolling:touch;
+	background:rgb(230,230,230);
+	font-size:0;
+	text-align:center;
+}
+.card {
+	background:rgb(255,255,255);
+	box-shadow:var(--shadow-darker);
+	display:inline-block;
+	vertical-align:top;
+	margin:0 20px 20px 0;
+	width:calc((100% / 3) - 34px);
+	padding:10px;
+	border-radius:10px;
+	min-height:250px;
+	text-align:left;
+}
+.card:nth-child(3n + 3) {
+	margin-right:0;
+}
+.card span {
+	display:block;
+	font-size:16px;
+	padding-left:10px;
+}
+.card .name {
+	font-size:18px;
+	font-weight:bold;
+}
