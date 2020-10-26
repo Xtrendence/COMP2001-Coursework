@@ -11,6 +11,15 @@
 	}
 }
 @media screen and (max-width:700px) {
+	.dataset-info-wrapper {
+		border-radius:0;
+		min-width:200px;
+		width:calc(100% - 60px);
+		overflow-x:scroll;
+		overflow-y:scroll;
+		scroll-behavior:smooth;
+		-webkit-overflow-scrolling:touch;
+	}
 	.data-wrapper .card-wrapper .card {
 		margin:0 20px 20px 0;
 		width:calc(100% - 20px);
