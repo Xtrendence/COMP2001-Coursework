@@ -1,5 +1,5 @@
 <?php
-	function displayData() {
+	function displayData($view) {
 		$html = "";
 		$file = "./dataset.json";
 		$content = file_get_contents($file);
@@ -25,7 +25,12 @@
 			$geometryLatitude = $coordinates[0];
 			$geometryLongitude = $coordinates[1];
 
-			$html .= '<tr class="entry"><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
+			if($view === "table") {
+				$html .= '<tr class="entry"><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
+			}
+			else {
+
+			}
 		}
 		return $html;
 	}
@@ -53,7 +58,7 @@
 	</head>
 	<body>
 		<div class="buttons-wrapper">
-			<button id="table-view">Table View</button>
+			<button class="active" id="table-view">Table View</button>
 			<button id="card-view">Card View</button>
 		</div>
 		<div class="data-wrapper">
@@ -74,8 +79,11 @@
 						<th>Geometry Latitude</th>
 						<th>Geometry Longitude</th>
 					</tr>
-					<?php echo displayData(); ?>
+					<?php echo displayData("table"); ?>
 				</table>
+			</div>
+			<div class="card-wrapper hidden">
+				<?php echo displayData("card"); ?>
 			</div>
 		</div>
 	</body>
