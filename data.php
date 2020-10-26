@@ -42,7 +42,7 @@
 				$html .= '<tr><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
 			}
 			else {
-
+				$html .= '<div class="card"><span>' . $name . '</span><span>' . $type . '</span><span>' . $id . '</span><span>' . $addressLine1 . '</span><span>' . $addressLine2 . '</span><span>' . $addressLine3 . '</span><span>' . $postcode . '</span><span>' . $latitude . '</span><span>' . $longitude . '</span><span><a href="' . $website . '">' . $name . '</a></span><span>' . $geometryType . '</span><span>' . $geometryLatitude . '</span><span>' . $geometryLongitude . '</span><span></div>';
 			}
 		}
 		return $html;
