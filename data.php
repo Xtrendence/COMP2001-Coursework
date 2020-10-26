@@ -25,7 +25,7 @@
 			$geometryLatitude = $coordinates[0];
 			$geometryLongitude = $coordinates[1];
 
-			$html .= '<div class="entry">' . $name . '</div>';
+			$html .= '<tr class="entry"><td>' . $type . '</td><td>' . $id . '</td><td>' . $name . '</td><td>' . $addressLine1 . '</td><td>' . $addressLine2 . '</td><td>' . $addressLine3 . '</td><td>' . $postcode . '</td><td>' . $latitude . '</td><td>' . $longitude . '</td><td><a href="' . $website . '">' . $name . '</a></td><td>' . $geometryType . '</td><td>' . $geometryLatitude . '</td><td>' . $geometryLongitude . '</td></tr>';
 		}
 		return $html;
 	}
@@ -53,7 +53,26 @@
 	</head>
 	<body>
 		<div class="data-wrapper">
-			<?php echo displayData(); ?>
+			<div class="table-wrapper">
+				<table>
+					<tr>
+						<th>Type</th>
+						<th>ID</th>
+						<th>Library Name</th>
+						<th>Address Line 1</th>
+						<th>Address Line 2</th>
+						<th>Address Line 3</th>
+						<th>Postcode</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+						<th>Website</th>
+						<th>Geometry Type</th>
+						<th>Geometry Latitude</th>
+						<th>Geometry Longitude</th>
+					</tr>
+					<?php echo displayData(); ?>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
