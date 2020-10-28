@@ -29,7 +29,7 @@
 				'AddressLine2' => 'https://schema.org/address',
 				'AddressLine3' => 'https://schema.org/address',
 				'Postcode' => 'https://schema.org/postalCode',
-				'Website' => 'https://schema.org/ur'
+				'Website' => 'https://schema.org/url'
 			),
 		);
 		$combined = $context + $array;
