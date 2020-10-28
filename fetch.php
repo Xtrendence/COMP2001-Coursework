@@ -3,7 +3,8 @@
 		header("Content-Type: application/json");
 		$file = "./dataset.json";
 		$content = file_get_contents($file);
-		$array = json_decode($content, true);
+		$formatted = str_replace("\"type\"", "\"@type\"", $content);
+		$array = json_decode($formatted, true);
 		$context = array(
 			'@context' => array(
 				'geojson' => 'https://purl.org/geojson/vocab#',
