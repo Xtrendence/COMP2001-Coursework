@@ -64,8 +64,8 @@
 		<link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#787878">
 		<meta name="msapplication-TileColor" content="#1d1d1d">
 		<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
-		<link rel="icon" type="image/x-icon" href="./favicon.ico">
-		<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+		<link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico">
 		<script src="./assets/js/leaflet.js"></script>
 		<script src="./assets/js/main.js"></script>
 		<title>View Dataset</title>
