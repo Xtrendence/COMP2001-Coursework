@@ -37,7 +37,7 @@
 				'title' => 'http://purl.org/dc/terms/title',
 			),
 		);
-		array_unshift($array, $context);
-		echo json_encode($array, JSON_PRETTY_PRINT);
+		$combined = $context + $array;
+		echo json_encode($combined, JSON_PRETTY_PRINT);
 	}
 ?>
