@@ -24,4 +24,6 @@ Leaflet: http://leafletjs.com/
 
 OpenStreetMap: https://www.openstreetmap.org/
 
+Mapbox: https://www.mapbox.com/
+
 Font Awesome: https://fontawesome.com/
