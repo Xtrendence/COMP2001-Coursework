@@ -33,6 +33,7 @@
 				'id' => '@id',
 				'properties' => 'geojson:properties',
 				'type' => '@type',
+				'fid' => 'https://schema.org/identifier',
 				'LibraryName' => 'https://schema.org/name',
 				'AddressLine1' => 'https://schema.org/address',
 				'AddressLine2' => 'https://schema.org/address',
