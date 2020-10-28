@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			divDatasetInfoWrapper.classList.add("hidden");
 			divOverlay.classList.add("hidden");
 			divMapWrapper.classList.remove("hidden");
+			map.invalidateSize(true);
 		}
 	}
 
@@ -92,6 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			divTableWrapper.classList.add("hidden");
 			divCardWrapper.classList.add("hidden");
 			divMapWrapper.classList.remove("hidden");
+
+			map.invalidateSize(true);
 		}
 	}
 
