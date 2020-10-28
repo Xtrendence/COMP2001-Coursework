@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	divOverlay.addEventListener("click", () => toggleDatasetInfo());
 
-	changeView("map");
-
 	let map = L.map("map").setView([50.375406, -4.138342], 13);
 
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
