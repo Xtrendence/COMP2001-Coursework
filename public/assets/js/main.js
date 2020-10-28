@@ -58,10 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		if(divDatasetInfoWrapper.classList.contains("hidden")) {
 			divDatasetInfoWrapper.classList.remove("hidden");
 			divOverlay.classList.remove("hidden");
+			divMapWrapper.classList.add("hidden");
 		}
 		else {
 			divDatasetInfoWrapper.classList.add("hidden");
 			divOverlay.classList.add("hidden");
+			divMapWrapper.classList.remove("hidden");
 		}
 	}
 
