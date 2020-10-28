@@ -33,8 +33,12 @@
 				'id' => '@id',
 				'properties' => 'geojson:properties',
 				'type' => '@type',
-				'description' => 'http://purl.org/dc/terms/description',
-				'title' => 'http://purl.org/dc/terms/title',
+				'LibraryName' => 'https://schema.org/name',
+				'AddressLine1' => 'https://schema.org/address',
+				'AddressLine2' => 'https://schema.org/address',
+				'AddressLine3' => 'https://schema.org/address',
+				'Postcode' => 'https://schema.org/postalCode',
+				'Website' => 'https://schema.org/ur'
 			),
 		);
 		$combined = $context + $array;
