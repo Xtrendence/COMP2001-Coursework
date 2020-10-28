@@ -10,17 +10,7 @@
 				'geojson' => 'https://purl.org/geojson/vocab#',
 				'Feature' => 'geojson:Feature',
 				'FeatureCollection' => 'geojson:FeatureCollection',
-				'GeometryCollection' => 'geojson:GeometryCollection',
-				'LineString' => 'geojson:LineString',
-				'MultiLineString' => 'geojson:MultiLineString',
-				'MultiPoint' => 'geojson:MultiPoint',
-				'MultiPolygon' => 'geojson:MultiPolygon',
 				'Point' => 'geojson:Point',
-				'Polygon' => 'geojson:Polygon',
-				'bbox' => array(
-					'@container' => '@list',
-					'@id' => 'geojson:bbox',
-				),
 				'coordinates' => array(
 					'@container' => '@list',
 					'@id' => 'geojson:coordinates',
