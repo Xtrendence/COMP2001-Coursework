@@ -36,6 +36,12 @@
 			</div>
 			<div class="card">
 				<div class="content">
+					<span class="title">Project Vision</span>
+					<span class="description">The goal of this linked data application is to display a chosen dataset in both a human readable format (such as an HTML table), and RDF format (JSON-LD). In this case, the GeoJSON dataset contains the location of libraries in Plymouth.</span>
+				</div>
+			</div>
+			<div class="card">
+				<div class="content">
 					<span class="title">Formatted Dataset</span>
 					<div class="button-container">
 						<a href="./data.php"><button>Human Readable</button></a>
@@ -43,12 +49,6 @@
 					<div class="button-container">
 						<a href="./fetch.php"><button>JSON-LD</button></a>
 					</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="content">
-					<span class="title">Project Vision</span>
-					<span class="description">The goal of this linked data application is to display a chosen dataset in both a human readable format (such as an HTML table), and RDF format (JSON-LD). In this case, the GeoJSON dataset contains the location of libraries in Plymouth.</span>
 				</div>
 			</div>
 		</div>
