@@ -20,4 +20,8 @@ A linked data application written in PHP that displays a dataset from [Plymouth 
 
 Plymouth DATA Place: https://plymouth.thedata.place/dataset
 
+Leaflet: http://leafletjs.com/
+
+OpenStreetMap: https://www.openstreetmap.org/
+
 Font Awesome: https://fontawesome.com/

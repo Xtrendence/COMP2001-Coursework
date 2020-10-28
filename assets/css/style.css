@@ -268,3 +268,20 @@ th {
 	font-size:18px;
 	font-weight:bold;
 }
+
+.data-wrapper .map-wrapper {
+	width:calc(100% - 40px);
+	height:calc(100% - 40px);
+	padding:20px;
+	overflow-x:scroll;
+	overflow-y:scroll;
+	scroll-behavior:smooth;
+	-webkit-overflow-scrolling:touch;
+	background:rgb(230,230,230);
+	font-size:0;
+	text-align:center;
+}
+.data-wrapper .map-wrapper #map {
+	height:100%;
+	width:100%;
+}

@@ -38,7 +38,7 @@
 				<div class="content">
 					<span class="title">Formatted Dataset</span>
 					<div class="button-container">
-						<a href="./data.php"><button>Table</button></a>
+						<a href="./data.php"><button>Human Readable</button></a>
 					</div>
 					<div class="button-container">
 						<a href="./fetch.php"><button>JSON-LD</button></a>

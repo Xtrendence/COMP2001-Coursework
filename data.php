@@ -53,6 +53,7 @@
 	<head>
 		<link rel="stylesheet" href="./assets/css/style.css">
 		<link rel="stylesheet" href="./assets/css/resize.css">
+		<link rel="stylesheet" href="./assets/css/leaflet.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta charset="UTF-8">
@@ -65,6 +66,7 @@
 		<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
 		<link rel="icon" type="image/x-icon" href="./favicon.ico">
 		<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+		<script src="./assets/js/leaflet.js"></script>
 		<script src="./assets/js/main.js"></script>
 		<title>View Dataset</title>
 	</head>
@@ -74,6 +76,7 @@
 			<button id="dataset-info">Dataset Info</button>
 			<button class="active" id="table-view">Table View</button>
 			<button id="card-view">Card View</button>
+			<button id="map-view">Map View</button>
 		</div>
 		<div class="overlay hidden"></div>
 		<div class="dataset-info-wrapper hidden">
@@ -110,6 +113,9 @@
 			</div>
 			<div class="card-wrapper hidden">
 				<?php echo displayFeatures("card"); ?>
+			</div>
+			<div class="map-wrapper hidden">
+				<div id="map"></div>
 			</div>
 		</div>
 	</body>
