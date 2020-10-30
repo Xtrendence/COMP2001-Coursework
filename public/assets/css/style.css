@@ -75,7 +75,11 @@ a {
 	position:absolute;
 	top:0;
 	right:0;
+	transition:transform 0.25s;
 	fill:var(--accent-color);
+}
+.navbar svg:hover {
+	transform:scale(0.95);
 }
 
 .main-wrapper {
