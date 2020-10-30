@@ -39,7 +39,28 @@ document.addEventListener("DOMContentLoaded", () => {
 					let object = JSON.parse(json);
 					let features = object.features;
 					features.map(feature => {
-						addMarkers(feature.properties.Latitude, feature.properties.Longitude, feature.properties.LibraryName);
+						let type = feature["@type"];
+						let properties = feature["properties"];
+						let geometry = feature["geometry"];
+
+						let id = properties["fid"];
+						let name = properties["LibraryName"];
+						let addressLine1 = properties["AddressLine1"] === null ? "" : properties["AddressLine1"];
+						let addressLine2 = properties["AddressLine2"] === null ? "" : properties["AddressLine2"];
+						let addressLine3 = properties["AddressLine3"] === null ? "" : properties["AddressLine3"];
+						let postcode = properties["Postcode"];
+						let latitude = properties["Latitude"];
+						let longitude = properties["Longitude"];
+						let website = properties["Website"];
+
+						let geometryType = geometry["@type"];
+						let coordinates = geometry["coordinates"];
+						let geometryLatitude = coordinates[1];
+						let geometryLongitude = coordinates[0];
+
+						let html = '<div class="map-card"><span class="name">' + name + '</span><span>Type: ' + type + '</span><span>ID: ' + id + '</span><span>' + addressLine1 + '</span><span>' + addressLine2 + '</span><span>' + addressLine3 + '</span><span>' + postcode + '</span><span>Latitude: ' + latitude + '</span><span>Longitude: ' + longitude + '</span><span>Website: <a target="_blank" href="' + website + '">' + name + '</a></span><span>Geometry Type: ' + geometryType + '</span><span>Geometry Latitude: ' + geometryLatitude + '</span><span>Geometry Longitude: ' + geometryLongitude + '</span><span></div>';
+
+						addMarkers(latitude, longitude, html);
 					});
 				}
 			}
@@ -48,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		xhr.send();
 	}
 
-	function addMarkers(latitude, longitude, text) {
-		L.marker([latitude, longitude]).addTo(map).bindPopup("<b>" + text + "</b>");
+	function addMarkers(latitude, longitude, html) {
+		L.marker([latitude, longitude]).addTo(map).bindPopup(html);
 	}
 
 	function toggleDatasetInfo() {

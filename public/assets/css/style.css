@@ -286,3 +286,10 @@ th {
 	width:100%;
 	border-radius:10px;
 }
+.map-card span {
+	display:block;
+}
+.map-card span:first-of-type {
+	font-size:16px;
+	font-weight:bold;
+}

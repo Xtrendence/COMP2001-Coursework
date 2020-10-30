@@ -3,7 +3,7 @@
 		header("Content-Type: application/json");
 		$file = "./dataset.json";
 		$content = file_get_contents($file);
-		$formatted = str_replace("\"type\"", "\"@type\"", $content);
+		$formatted = str_replace("\"type\":", "\"@type\":", $content);
 		$array = json_decode($formatted, true);
 		$context = array(
 			'@context' => array(
