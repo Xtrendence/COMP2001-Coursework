@@ -170,3 +170,6 @@ CREATE TRIGGER ChangedPassword ON Users AFTER UPDATE AS
 			FROM deleted
 		END
 GO
+
+CREATE VIEW LoginCount AS
+SELECT UserID, COUNT(UserID) AS "Total Logins" FROM Sessions GROUP BY UserID
