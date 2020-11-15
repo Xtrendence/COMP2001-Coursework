@@ -24,14 +24,17 @@ BEGIN
 
 		BEGIN TRY 
 			SET @Error = 'Max: ' + CAST(@UserID AS NVARCHAR);
+			/* Check to make sure a UserID with that email doesn't already exist. */
 			SELECT @UserID = UserID FROM Users WHERE Email = @Email;
 
+			/* If the UserID is NULL, then that email doesn't exist. */
 			IF @UserID IS NULL
 				BEGIN
 					INSERT INTO Users (FirstName, LastName, Email, UserPassword)
 					VALUES (@FirstName, @LastName, @Email, @Password);
 
 					IF @@TRANCOUNT > 0
+						/* The user's newly generated ID can now be fetched from the table. */
 						SELECT @UserID = UserID FROM Users WHERE Email = @Email;
 						SET @ResponseMessage = '{status:200, id:' + CAST(@UserID AS NVARCHAR) + '}';
 						COMMIT;
@@ -51,5 +54,27 @@ BEGIN
 		END CATCH;
 
 		SELECT @ResponseMessage AS "Response";
+END;
+GO
+
+CREATE PROCEDURE ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255)) AS
+BEGIN
+	DECLARE @ReturnValue INT;
+	DECLARE @ValidEmail VARCHAR(320);
+	DECLARE @ValidPassword VARCHAR(255);
+
+	SELECT @ValidEmail = Email FROM Users WHERE Email = @Email;
+	SELECT @ValidPassword = UserPassword FROM Users WHERE Email = @Email;
+
+	IF @ValidEmail = @Email AND @ValidPassword = @Password
+		BEGIN
+			SET @ReturnValue = 1;
+		END
+	ELSE 
+		BEGIN
+			SET @ReturnValue = 0;
+		END
+
+	RETURN @ReturnValue;
 END;
 GO
