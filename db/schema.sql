@@ -6,12 +6,12 @@ CREATE TABLE Users (
 	UserPassword NVARCHAR(255) NOT NULL
 );
 CREATE TABLE Passwords (
-	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID),
+	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
 	OldPassword NVARCHAR(255) NOT NULL,
 	ChangeDate DATETIME NOT NULL
 );
 CREATE TABLE Sessions (
-	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID),
+	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
 	IssueDate DATETIME NOT NULL
 );
 
@@ -176,3 +176,47 @@ GO
 
 CREATE VIEW LoginCount AS
 SELECT UserID, COUNT(UserID) AS "Total Logins" FROM Sessions GROUP BY UserID
+
+/* To generate mock data, and test all the code above. */
+
+EXEC Register "John", "Smith", "john.smith@domain.com", "passw0rd", "Response";
+EXEC Register "James", "Jackson", "j.jackson@domain.com", "secr3t", "Response";
+EXEC Register "Rachel", "Woods", "rachelw@domain.com", "qu13t", "Response";
+EXEC Register "Evan", "Adamson", "e.adamson@domain.com", "4d4m50n", "Response";
+EXEC Register "Barnaby", "Deleted", "born2bedeleted@domain.com", "d3l3t3", "Response";
+
+EXEC ValidateUser "john.smith@domain.com", "passw0rd";
+EXEC ValidateUser "john.smith@domain.com", "passw0rd";
+EXEC ValidateUser "john.smith@domain.com", "passw0rd";
+EXEC ValidateUser "j.jackson@domain.com", "secr3t";
+EXEC ValidateUser "j.jackson@domain.com", "WrongPassword";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "qu13t";
+EXEC ValidateUser "rachelw@domain.com", "Wrong";
+EXEC ValidateUser "e.adamson@domain.com", "Wrong";
+
+EXEC UpdateUser 2, "Crumb", "Colgate", "crumb.colgate@domain.com", "newp4ss";
+EXEC UpdateUser 2, "Crumb", "Colgate", "crumb.colgate@domain.com", "newerp4ss";
+
+EXEC DeleteUser 5;
+
+/* 
+	The expected result is that the Users table will have the following users by the end of the procedures above:
+	John Smith
+	Crumb Colgate
+	Rachel Woods
+	Evan Adamson
+
+	Barnaby Deleted would be deleted, as he was born to be deleted unfortunately. James Jackson would've become Crumb Colgate, which is a much better name anyway. John Smith would have 3 entries in the Sessions table, Crumb Colgate (James Jackson) would have 1 since the other login attempt is incorrect on purpose, Rachel would have 6 since the 7th is incorrect, and Evan would have 0 since his one and only attempt was incorrect.
+
+	So overall, 4 records in the Users table, 2 in the Passwords table, and 10 in the Sessions table.
+*/
+
+/* Register(@FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) */
+/* ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255) */
+/* UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255) */
+/* DeleteUser(@UserID AS INT) */
