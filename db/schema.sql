@@ -122,3 +122,42 @@ BEGIN
 		/* Since the assessment didn't ask for an output parameter or any return values, there's no response message or output (except if there's an error of course). */
 END;
 GO
+
+CREATE PROCEDURE DeleteUser(@UserID AS INT) AS
+BEGIN
+	BEGIN TRANSACTION 
+		DECLARE @Error NVARCHAR(MAX);
+
+		BEGIN TRY 
+			IF @UserID IS NULL
+				BEGIN
+					SET @Error = 'UserID cannot be null.';
+					ROLLBACK TRANSACTION;
+					RAISERROR(@Error, 1, 0);
+				END
+			ELSE
+				BEGIN
+					IF EXISTS(SELECT * FROM Users WHERE UserID = @UserID)
+						BEGIN
+							DELETE FROM Users WHERE UserID = @UserID;
+
+							IF @@TRANCOUNT > 0
+								COMMIT;
+						END
+					ELSE
+						BEGIN
+							SET @Error = 'No users found with that UserID.';
+							ROLLBACK TRANSACTION;
+							RAISERROR(@Error, 1, 0);
+						END
+				END
+		END TRY
+		BEGIN CATCH
+			SET @Error = @Error + ': An error occurred, and the user could not be deleted.';
+			IF @@TRANCOUNT > 0
+				ROLLBACK TRANSACTION;
+			RAISERROR(@Error, 1, 0);
+		END CATCH;
+		/* Since the assessment didn't ask for an output parameter or any return values, there's no response message or output (except if there's an error of course). */
+END;
+GO
