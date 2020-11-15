@@ -12,8 +12,7 @@ CREATE TABLE Passwords (
 );
 CREATE TABLE Sessions (
 	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID),
-	SessionToken NVARCHAR(255),
-	IssueDate DATETIME
+	IssueDate DATETIME NOT NULL
 );
 
 CREATE PROCEDURE Register(@FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
@@ -59,6 +58,7 @@ GO
 
 CREATE PROCEDURE ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255)) AS
 BEGIN
+	DECLARE @UserID INT;
 	DECLARE @ReturnValue INT;
 	DECLARE @ValidEmail VARCHAR(320);
 	DECLARE @ValidPassword VARCHAR(255);
@@ -68,6 +68,9 @@ BEGIN
 
 	IF @ValidEmail = @Email AND @ValidPassword = @Password
 		BEGIN
+			SELECT @UserID = UserID FROM Users WHERE Email = @Email;
+			INSERT INTO Sessions (UserID, IssueDate)
+			VALUES (@UserID, GETDATE());
 			SET @ReturnValue = 1;
 		END
 	ELSE 
