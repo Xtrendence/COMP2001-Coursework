@@ -161,3 +161,12 @@ BEGIN
 		/* Since the assessment didn't ask for an output parameter or any return values, there's no response message or output (except if there's an error of course). */
 END;
 GO
+
+CREATE TRIGGER ChangedPassword ON Users AFTER UPDATE AS
+	IF UPDATE(UserPassword)
+		BEGIN
+			INSERT INTO Passwords (UserID, OldPassword, ChangeDate)
+			SELECT UserID, UserPassword, GETDATE()
+			FROM deleted
+		END
+GO
