@@ -20,6 +20,7 @@ BEGIN
 	BEGIN TRANSACTION 
 		DECLARE @Error NVARCHAR(MAX);
 		DECLARE @UserID INT;
+		DECLARE @Max INT;  
 
 		BEGIN TRY 
 			SET @Error = 'Max: ' + CAST(@UserID AS NVARCHAR);
@@ -29,6 +30,9 @@ BEGIN
 			/* If the UserID is NULL, then that email doesn't exist. */
 			IF @UserID IS NULL
 				BEGIN
+					select @Max = MAX(UserID) FROM Users;  
+					DBCC CHECKIDENT(Users, reseed, @max);
+
 					INSERT INTO Users (FirstName, LastName, Email, UserPassword)
 					VALUES (@FirstName, @LastName, @Email, @Password);
 
