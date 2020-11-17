@@ -63,7 +63,22 @@ namespace Auth.Models
 		}
 		public static void Update(User user, int id)
 		{
+			using(SqlConnection conn = new SqlConnection(connection))
+			{
+				conn.Open();
 
+				SqlCommand cmd = new SqlCommand("UpdateUser", conn);
+
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.Add(new SqlParameter("@UserID", id));
+				cmd.Parameters.Add(new SqlParameter("@FirstName", user.FirstName));
+				cmd.Parameters.Add(new SqlParameter("@LastName", user.LastName));
+				cmd.Parameters.Add(new SqlParameter("@Email", user.Email));
+				cmd.Parameters.Add(new SqlParameter("@Password", user.UserPassword));
+
+				cmd.ExecuteNonQuery();
+			}
 		}
 		public static void Delete(int id)
 		{

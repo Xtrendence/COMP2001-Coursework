@@ -21,13 +21,6 @@ namespace Auth.Controllers
             _context = context;
         }
 
-        // GET: user/all
-        [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
         // GET: user/
         [HttpGet]
         public async Task<ActionResult<String>> GetUser(User user)
@@ -40,32 +33,9 @@ namespace Auth.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async void PutUser(User user, int id)
         {
-            if (id != user.UserId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            DataAccess.Update(user, id);
         }
 
         // POST: user/
