@@ -34,17 +34,51 @@ namespace Auth.Models
 			}
 			return valid;
 		}
-		static void Register(User user, String output)
+		public static String Register(User user, String output)
+		{
+			String response = "";
+			using(SqlConnection conn = new SqlConnection(connection))
+			{
+				conn.Open();
+
+				SqlCommand cmd = new SqlCommand("Register", conn);
+
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.Add(new SqlParameter("@FirstName", user.FirstName));
+				cmd.Parameters.Add(new SqlParameter("@LastName", user.LastName));
+				cmd.Parameters.Add(new SqlParameter("@Email", user.Email));
+				cmd.Parameters.Add(new SqlParameter("@Password", user.UserPassword));
+				cmd.Parameters.Add(new SqlParameter("@ResponseMessage", output));
+
+				using(SqlDataReader reader = cmd.ExecuteReader())
+				{
+					while(reader.Read())
+					{
+						response += reader.GetString(0);
+					}
+				}
+			}
+			return response;
+		}
+		public static void Update(User user, int id)
 		{
 
 		}
-		static void Update(User user, int id)
+		public static void Delete(int id)
 		{
+			using(SqlConnection conn = new SqlConnection(connection))
+			{
+				conn.Open();
 
-		}
-		static void Delete(int id)
-		{
+				SqlCommand cmd = new SqlCommand("DeleteUser", conn);
 
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.Add(new SqlParameter("@UserID", id));
+
+				cmd.ExecuteNonQuery();
+			}
 		}
 	}
 }

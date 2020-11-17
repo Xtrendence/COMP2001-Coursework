@@ -21,6 +21,13 @@ namespace Auth.Controllers
             _context = context;
         }
 
+        // GET: user/all
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         // GET: user/
         [HttpGet]
         public async Task<ActionResult<String>> GetUser(User user)
@@ -65,28 +72,17 @@ namespace Auth.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<String>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            String response = DataAccess.Register(user, "Response");
+            return response;
         }
 
         // DELETE: user/{id}
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async void DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
+            DataAccess.Delete(id);
         }
 
         private bool UserExists(int id)
