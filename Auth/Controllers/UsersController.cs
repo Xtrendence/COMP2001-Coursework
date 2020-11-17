@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Auth.Models;
+using System.Diagnostics;
 
 namespace Auth.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("user/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -20,28 +21,15 @@ namespace Auth.Controllers
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: user/
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<String>> GetUser(User user)
         {
-            return await _context.Users.ToListAsync();
+            bool valid = DataAccess.Validate(user);
+            return "{ Status:200, Validated:" + valid.ToString().ToLower() + " }";
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-
-        // PUT: api/Users/5
+        // PUT: user/{id}
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -73,7 +61,7 @@ namespace Auth.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: user/
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
@@ -85,7 +73,7 @@ namespace Auth.Controllers
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: user/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
