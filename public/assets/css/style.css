@@ -1,5 +1,5 @@
 :root {
-	--accent-color:rgb(20, 150, 230);
+	--accent-color:rgb(0,183,224);
 	--shadow-dark:0 6px 10px rgba(40,40,40,0.2);
 	--shadow-darker:0 6px 10px rgba(40,40,40,0.35);
 	--shadow-smooth:4px 4px 10px rgb(184,185,190), -5px -5px 10px rgb(220,220,220);
@@ -69,6 +69,12 @@ a {
 	font-size:32px;
 	font-weight:bold;
 	color:var(--accent-color);
+	background:rgb(0,210,255);
+	background:-webkit-linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
+	background:linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
+	background-clip:content-box;
+	-webkit-background-clip:text;
+	-webkit-text-fill-color:transparent;
 }
 .navbar svg {
 	height:52px;
@@ -78,7 +84,7 @@ a {
 	top:0;
 	right:0;
 	transition:transform 0.25s;
-	fill:var(--accent-color);
+	fill:url(#blue-gradient);
 }
 .navbar svg:hover {
 	transform:scale(0.95);
@@ -142,7 +148,9 @@ a {
 	font-size:18px;
 	font-weight:bold;
 	color:rgb(255,255,255);
-	background:var(--accent-color);
+	background:rgb(0,210,255);
+	background:-webkit-linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
+	background:linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
 	border-radius:10px;
 	transition:transform 0.25s;
 	cursor:pointer;
@@ -165,7 +173,7 @@ a {
 	width:40px;
 	height:40px;
 	transition:transform 0.25s;
-	fill:var(--accent-color);
+	fill:url(#blue-gradient);
 }
 .buttons-wrapper svg:hover {
 	transform:scale(0.95);
@@ -178,7 +186,9 @@ a {
 	font-size:18px;
 	font-weight:bold;
 	color:rgb(255,255,255);
-	background:var(--accent-color);
+	background:rgb(0,210,255);
+	background:-webkit-linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
+	background:linear-gradient(to right, rgb(58,123,213), rgb(0,183,224));
 	border-radius:10px;
 	transition:transform 0.25s;
 	cursor:pointer;
