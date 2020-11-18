@@ -2,6 +2,7 @@
 	--accent-color:rgb(20, 150, 230);
 	--shadow-dark:0 6px 10px rgba(40,40,40,0.2);
 	--shadow-darker:0 6px 10px rgba(40,40,40,0.35);
+	--shadow-smooth:4px 4px 10px rgb(184,185,190), -5px -5px 10px rgb(255,255,255);
 	--font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif;
 }
 html {
@@ -60,6 +61,7 @@ a {
 	width:100%;
 	height:80px;
 	background:rgb(220,220,220);
+	box-shadow:var(--shadow-smooth);
 }
 .navbar span {
 	line-height:80px;
@@ -105,6 +107,7 @@ a {
 	vertical-align:top;
 	border-radius:10px;
 	overflow:hidden;
+	box-shadow:var(--shadow-smooth);
 }
 .main-wrapper .card:nth-of-type(2) {
 	margin:20px;
@@ -144,6 +147,7 @@ a {
 	transition:transform 0.25s;
 	cursor:pointer;
 	display:inline-block;
+	box-shadow:var(--shadow-dark);
 }
 .main-wrapper .card button:hover {
 	transform:scale(0.95);
@@ -178,6 +182,7 @@ a {
 	border-radius:10px;
 	transition:transform 0.25s;
 	cursor:pointer;
+	box-shadow:var(--shadow-smooth);
 }
 .buttons-wrapper button:hover {
 	transform:scale(0.95);
@@ -216,6 +221,7 @@ a {
 	width:calc(100% - 60px);
 	height:calc(100% - 60px - 50px);
 	position:absolute;
+	box-shadow:var(--shadow-smooth);
 }
 .table-wrapper {
 	width:100%;
@@ -250,7 +256,7 @@ th {
 }
 .data-wrapper .card-wrapper .card {
 	background:rgb(255,255,255);
-	box-shadow:var(--shadow-darker);
+	box-shadow:var(--shadow-smooth);
 	display:inline-block;
 	vertical-align:top;
 	margin:0 20px 20px 0;
