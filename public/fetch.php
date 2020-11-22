@@ -1,6 +1,7 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] === "GET") {
-		header("Content-Type: application/json");
+		header("Access-Control-Allow-Origin: *");
+		header("Content-Type: application/json; charset=UTF-8");
 		$file = "./dataset.json";
 		$content = file_get_contents($file);
 		$formatted = str_replace("\"type\":", "\"@type\":", $content);
