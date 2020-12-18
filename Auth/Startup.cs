@@ -28,7 +28,8 @@ namespace Auth
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-
+			services.AddDistributedMemoryCache();
+			services.AddSession();
 			services.AddDbContext<COMP2001_KNouchinContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("COMP2001_DB"))
 			);
@@ -47,6 +48,8 @@ namespace Auth
 			app.UseRouting();
 
 			app.UseAuthorization();
+
+			app.UseSession();
 
 			app.UseEndpoints(endpoints =>
 			{
