@@ -7,7 +7,7 @@ namespace Auth.Models
 {
     public partial class LoginCount
     {
-        public int UserId { get; set; }
-        public int? TotalLogins { get; set; }
+        public int userId { get; set; }
+        public int? totalLogins { get; set; }
     }
 }

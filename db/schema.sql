@@ -1,18 +1,18 @@
 CREATE TABLE Users (
-	UserID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-	FirstName VARCHAR(64) NOT NULL,
-	LastName VARCHAR(64) NOT NULL,
-	Email NVARCHAR(320) NOT NULL UNIQUE,
-	UserPassword NVARCHAR(255) NOT NULL
+	userID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	firstName VARCHAR(64) NOT NULL,
+	lastName VARCHAR(64) NOT NULL,
+	email NVARCHAR(320) NOT NULL UNIQUE,
+	password NVARCHAR(255) NOT NULL
 );
 CREATE TABLE Passwords (
-	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
-	OldPassword NVARCHAR(255) NOT NULL,
-	ChangeDate DATETIME NOT NULL
+	userID INT NOT NULL FOREIGN KEY REFERENCES Users(userID) ON DELETE CASCADE,
+	oldPassword NVARCHAR(255) NOT NULL,
+	changeDate DATETIME NOT NULL
 );
 CREATE TABLE Sessions (
-	UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
-	IssueDate DATETIME NOT NULL
+	userID INT NOT NULL FOREIGN KEY REFERENCES Users(userID) ON DELETE CASCADE,
+	issueDate DATETIME NOT NULL
 );
 
 CREATE PROCEDURE Register(@FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
@@ -25,32 +25,37 @@ BEGIN
 		BEGIN TRY 
 			SET @Error = 'Max: ' + CAST(@UserID AS NVARCHAR);
 			/* Check to make sure a UserID with that email doesn't already exist. */
-			SELECT @UserID = UserID FROM Users WHERE Email = @Email;
+			SELECT @UserID = userID FROM Users WHERE email = @Email;
 
 			/* If the UserID is NULL, then that email doesn't exist. */
 			IF @UserID IS NULL
 				BEGIN
-					select @Max = MAX(UserID) FROM Users;  
-					DBCC CHECKIDENT(Users, reseed, @max);
+					SELECT @Max = MAX(userID) FROM Users;
+					IF @Max IS NULL
+						BEGIN
+							SET @Max = 1;
+						END
+						
+					DBCC CHECKIDENT(Users, reseed, @Max);
 
-					INSERT INTO Users (FirstName, LastName, Email, UserPassword)
+					INSERT INTO Users (firstName, lastName, email, password)
 					VALUES (@FirstName, @LastName, @Email, @Password);
 
 					IF @@TRANCOUNT > 0
 						/* The user's newly generated ID can now be fetched from the table. */
-						SELECT @UserID = UserID FROM Users WHERE Email = @Email;
-						SET @ResponseMessage = '{status:200, id:' + CAST(@UserID AS NVARCHAR) + '}';
+						SELECT @UserID = userID FROM Users WHERE email = @Email;
+						SET @ResponseMessage = '{ "code":"200", "UserID":"' + CAST(@UserID AS NVARCHAR) + '" }';
 						COMMIT;
 				END
 			ELSE
 				BEGIN
-					SET @ResponseMessage = '{status:400, error:A user with that email already exists.}';
+					SET @ResponseMessage = '{ "code":"208", "message":"A user with that email already exists." }';
 					ROLLBACK TRANSACTION;
 				END
 		END TRY
 		BEGIN CATCH
 			SET @Error = @Error + ': An error occurred, and the user could not be registered.';
-			SET @ResponseMessage = '{status:400, error:' + @Error + '}';
+			SET @ResponseMessage = '{ "message":"' + @Error + '" }';
 			IF @@TRANCOUNT > 0
 				ROLLBACK TRANSACTION;
 			RAISERROR(@Error, 1, 0);
@@ -67,13 +72,13 @@ BEGIN
 	DECLARE @ValidEmail VARCHAR(320);
 	DECLARE @ValidPassword VARCHAR(255);
 
-	SELECT @ValidEmail = Email FROM Users WHERE Email = @Email;
-	SELECT @ValidPassword = UserPassword FROM Users WHERE Email = @Email;
+	SELECT @ValidEmail = email FROM Users WHERE email = @Email;
+	SELECT @ValidPassword = password FROM Users WHERE email = @Email;
 
 	IF @ValidEmail = @Email AND @ValidPassword = @Password
 		BEGIN
-			SELECT @UserID = UserID FROM Users WHERE Email = @Email;
-			INSERT INTO Sessions (UserID, IssueDate)
+			SELECT @UserID = userID FROM Users WHERE email = @Email;
+			INSERT INTO Sessions (userID, issueDate)
 			VALUES (@UserID, GETDATE());
 			SET @ReturnValue = 1;
 		END
@@ -100,14 +105,14 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					IF EXISTS(SELECT * FROM Users WHERE UserID = @UserID)
+					IF EXISTS(SELECT * FROM Users WHERE userID = @UserID)
 						BEGIN
 							UPDATE Users
-							SET FirstName = @FirstName,
-								LastName = @LastName,
-								Email = @Email,
-								UserPassword = @Password
-							WHERE UserID = @UserID;
+							SET firstName = @FirstName,
+								lastName = @LastName,
+								email = @Email,
+								password = @Password
+							WHERE userID = @UserID;
 
 							IF @@TRANCOUNT > 0
 								COMMIT;
@@ -144,9 +149,9 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					IF EXISTS(SELECT * FROM Users WHERE UserID = @UserID)
+					IF EXISTS(SELECT * FROM Users WHERE userID = @UserID)
 						BEGIN
-							DELETE FROM Users WHERE UserID = @UserID;
+							DELETE FROM Users WHERE userID = @UserID;
 
 							IF @@TRANCOUNT > 0
 								COMMIT;
@@ -170,16 +175,16 @@ END;
 GO
 
 CREATE TRIGGER ChangedPassword ON Users AFTER UPDATE AS
-	IF UPDATE(UserPassword)
+	IF UPDATE(password)
 		BEGIN
-			INSERT INTO Passwords (UserID, OldPassword, ChangeDate)
-			SELECT UserID, UserPassword, GETDATE()
+			INSERT INTO Passwords (userID, oldPassword, changeDate)
+			SELECT userID, password, GETDATE()
 			FROM deleted
 		END
 GO
 
 CREATE VIEW LoginCount AS
-SELECT UserID, COUNT(UserID) AS "Total Logins" FROM Sessions GROUP BY UserID
+SELECT userID, COUNT(userID) AS "Total Logins" FROM Sessions GROUP BY userID
 
 /* To generate mock data, and test all the code above. */
 

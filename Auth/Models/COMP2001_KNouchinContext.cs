@@ -26,7 +26,6 @@ namespace Auth.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=socem1.uopnet.plymouth.ac.uk;Database=COMP2001_KNouchin;User Id=KNouchin; Password=***REMOVED***");
             }
         }
@@ -39,26 +38,26 @@ namespace Auth.Models
 
                 entity.ToView("LoginCount");
 
-                entity.Property(e => e.TotalLogins).HasColumnName("Total Logins");
+                entity.Property(e => e.totalLogins).HasColumnName("Total Logins");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.userId).HasColumnName("userID");
             });
 
             modelBuilder.Entity<Password>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.ChangeDate).HasColumnType("datetime");
+                entity.Property(e => e.changeDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OldPassword)
+                entity.Property(e => e.oldPassword)
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.userId).HasColumnName("userID");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.userId)
                     .HasConstraintName("FK__Passwords__UserI__02084FDA");
             });
 
@@ -66,38 +65,38 @@ namespace Auth.Models
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.IssueDate).HasColumnType("datetime");
+                entity.Property(e => e.issueDate).HasColumnType("datetime");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.userId).HasColumnName("userID");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.userId)
                     .HasConstraintName("FK__Sessions__UserID__03F0984C");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534FB7AC94E")
+                entity.HasIndex(e => e.email, "UQ__Users__A9D10534FB7AC94E")
                     .IsUnique();
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.userId).HasColumnName("userID");
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.email)
                     .IsRequired()
                     .HasMaxLength(320);
 
-                entity.Property(e => e.FirstName)
+                entity.Property(e => e.firstName)
                     .IsRequired()
                     .HasMaxLength(64)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LastName)
+                entity.Property(e => e.lastName)
                     .IsRequired()
                     .HasMaxLength(64)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserPassword)
+                entity.Property(e => e.password)
                     .IsRequired()
                     .HasMaxLength(255);
             });

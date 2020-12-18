@@ -1,0 +1,9 @@
+PUT https://localhost:44327/user/5
+Content-Type: application/json
+
+{
+	"firstName":"Khodadad",
+	"lastName":"Nouchin",
+	"email":"xtrendence@gmail.com",
+	"password":"anotherT3st"
+}

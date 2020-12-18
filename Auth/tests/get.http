@@ -1,0 +1,8 @@
+GET https://localhost:44327/user
+Content-Type: application/json
+Accept: application/json
+
+{
+	"email":"john.smith@domain.com",
+	"password":"passw0rd"
+}

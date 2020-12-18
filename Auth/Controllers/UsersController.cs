@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Auth.Models;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace Auth.Controllers
 {
@@ -26,26 +27,44 @@ namespace Auth.Controllers
         public async Task<ActionResult<String>> GetUser(User user)
         {
             bool valid = DataAccess.Validate(user);
-            return "{ Status:200, Validated:" + valid.ToString().ToLower() + " }";
+            this.Response.StatusCode = 200;
+            this.Response.ContentType = "application/json";
+            dynamic response = new { verified = valid.ToString().ToLower() };
+			return JObject.FromObject(response).ToString(Newtonsoft.Json.Formatting.None);
         }
 
         // PUT: user/{id}
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async void PutUser(User user, int id)
         {
             DataAccess.Update(user, id);
+            this.Response.StatusCode = 204;
         }
 
         // POST: user/
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<String>> PostUser(User user)
         {
-            String response = DataAccess.Register(user, "Response");
-            return response;
+            String result = DataAccess.Register(user, "Response");
+            this.Response.ContentType = "application/json";
+            dynamic response;
+            dynamic parsed = JObject.Parse(result);
+            if(parsed["code"] == "200") 
+            {
+                this.Response.StatusCode = 200;
+                response = new { UserID = parsed["UserID"] };
+			}
+            else if(parsed["code"] == "208")
+			{
+                this.Response.StatusCode = 208;
+                response = new { message = "Call successful, but email already exists and so new entry not made" };
+            }
+            else
+			{
+                this.Response.StatusCode = 404;
+                response = new { message = "Bad request" };
+			}
+            return JObject.FromObject(response).ToString(Newtonsoft.Json.Formatting.None);
         }
 
         // DELETE: user/{id}
@@ -53,11 +72,7 @@ namespace Auth.Controllers
         public async void DeleteUser(int id)
         {
             DataAccess.Delete(id);
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
+            this.Response.StatusCode = 204;
         }
     }
 }

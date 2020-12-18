@@ -7,8 +7,8 @@ namespace Auth.Models
 {
     public partial class Session
     {
-        public int UserId { get; set; }
-        public DateTime IssueDate { get; set; }
+        public int userId { get; set; }
+        public DateTime issueDate { get; set; }
 
         public virtual User User { get; set; }
     }

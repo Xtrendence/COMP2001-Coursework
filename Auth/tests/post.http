@@ -1,0 +1,10 @@
+POST https://localhost:44327/user
+Content-Type: application/json
+Accept: application/json
+
+{
+	"firstName":"Khodadad",
+	"lastName":"Nouchin",
+	"email":"xtrendence@gmail.com",
+	"password":"test1ng"
+}

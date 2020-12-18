@@ -58,7 +58,6 @@ C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcorea
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.csprojAssemblyReference.cache
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\Microsoft.Data.Sqlite.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Sqlite.dll
@@ -152,5 +151,12 @@ C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcorea
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.csprojAssemblyReference.cache
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.csproj.CoreCompileInputs.cache
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.MvcApplicationPartsAssemblyInfo.cache

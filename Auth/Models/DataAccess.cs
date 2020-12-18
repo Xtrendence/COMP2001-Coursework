@@ -23,8 +23,8 @@ namespace Auth.Models
 
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.Add(new SqlParameter("@Email", user.Email));
-				cmd.Parameters.Add(new SqlParameter("@Password", user.UserPassword));
+				cmd.Parameters.Add(new SqlParameter("@Email", user.email));
+				cmd.Parameters.Add(new SqlParameter("@Password", user.password));
 
 				int result = cmd.ExecuteNonQuery();
 				if(result == 1)
@@ -45,10 +45,10 @@ namespace Auth.Models
 
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.Add(new SqlParameter("@FirstName", user.FirstName));
-				cmd.Parameters.Add(new SqlParameter("@LastName", user.LastName));
-				cmd.Parameters.Add(new SqlParameter("@Email", user.Email));
-				cmd.Parameters.Add(new SqlParameter("@Password", user.UserPassword));
+				cmd.Parameters.Add(new SqlParameter("@FirstName", user.firstName));
+				cmd.Parameters.Add(new SqlParameter("@LastName", user.lastName));
+				cmd.Parameters.Add(new SqlParameter("@Email", user.email));
+				cmd.Parameters.Add(new SqlParameter("@Password", user.password));
 				cmd.Parameters.Add(new SqlParameter("@ResponseMessage", output));
 
 				using(SqlDataReader reader = cmd.ExecuteReader())
@@ -72,10 +72,10 @@ namespace Auth.Models
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.Add(new SqlParameter("@UserID", id));
-				cmd.Parameters.Add(new SqlParameter("@FirstName", user.FirstName));
-				cmd.Parameters.Add(new SqlParameter("@LastName", user.LastName));
-				cmd.Parameters.Add(new SqlParameter("@Email", user.Email));
-				cmd.Parameters.Add(new SqlParameter("@Password", user.UserPassword));
+				cmd.Parameters.Add(new SqlParameter("@FirstName", user.firstName));
+				cmd.Parameters.Add(new SqlParameter("@LastName", user.lastName));
+				cmd.Parameters.Add(new SqlParameter("@Email", user.email));
+				cmd.Parameters.Add(new SqlParameter("@Password", user.password));
 
 				cmd.ExecuteNonQuery();
 			}
