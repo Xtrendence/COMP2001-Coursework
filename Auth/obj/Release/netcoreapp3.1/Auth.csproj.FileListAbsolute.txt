@@ -154,3 +154,9 @@ C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Release\netcor
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Release\netcoreapp3.1\Auth.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Release\netcoreapp3.1\Auth.pdb
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Release\netcoreapp3.1\Auth.genruntimeconfig.cache
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\System.Web.Razor.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\System.Web.Helpers.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\System.Web.WebPages.Razor.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\System.Web.WebPages.dll
+C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Release\netcoreapp3.1\Microsoft.Web.Infrastructure.dll

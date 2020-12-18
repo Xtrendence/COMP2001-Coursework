@@ -1,7 +1,7 @@
-POST http://web.socem.plymouth.ac.uk/COMP2001/KNouchin/Auth/user/
+POST https://localhost:44327/user
 Content-Type: application/json
 Accept: application/json
-api_key: FMFm33IEb0G5LWWY2i0YHQ==
+api_key: 2MX018IkPk6nhTXqHLQQMw==
 
 {
 	"firstName":"Khodadad",
