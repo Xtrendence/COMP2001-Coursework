@@ -1,7 +1,7 @@
 CREATE TABLE Users (
 	userID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-	firstName VARCHAR(64) NOT NULL,
-	lastName VARCHAR(64) NOT NULL,
+	firstName VARCHAR(32) NOT NULL,
+	lastName VARCHAR(32) NOT NULL,
 	email NVARCHAR(320) NOT NULL UNIQUE,
 	password NVARCHAR(255) NOT NULL
 );
@@ -17,7 +17,7 @@ CREATE TABLE Sessions (
 	issueDate DATETIME NOT NULL
 );
 
-CREATE PROCEDURE Register(@FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
+CREATE PROCEDURE Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
 BEGIN
 	BEGIN TRANSACTION 
 		DECLARE @Error NVARCHAR(MAX);
@@ -93,7 +93,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255)) AS
+CREATE PROCEDURE UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255)) AS
 BEGIN
 	BEGIN TRANSACTION 
 		DECLARE @Error NVARCHAR(MAX);
@@ -227,7 +227,7 @@ EXEC DeleteUser 5;
 	So overall, 4 records in the Users table, 2 in the Passwords table, and 10 in the Sessions table.
 */
 
-/* Register(@FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) */
+/* Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) */
 /* ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255) */
-/* UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(64), @LastName AS VARCHAR(64), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255) */
+/* UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255) */
 /* DeleteUser(@UserID AS INT) */
