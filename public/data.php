@@ -4,7 +4,7 @@
 	$file = "./dataset.json";
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<link rel="stylesheet" href="./assets/css/style.css">
 		<link rel="stylesheet" href="./assets/css/resize.css">
@@ -22,12 +22,13 @@
 		<link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico">
 		<link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico">
 		<script src="./assets/js/leaflet.js"></script>
-		<script src="./assets/js/main.js"></script>
+		<script src="./assets/js/data.js"></script>
 		<title>View Dataset</title>
 	</head>
 	<body>
 		<div class="buttons-wrapper">
-			<a href="./index.php"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm116-292H256v-70.9c0-10.7-13-16.1-20.5-8.5L121.2 247.5c-4.7 4.7-4.7 12.2 0 16.9l114.3 114.9c7.6 7.6 20.5 2.2 20.5-8.5V300h116c6.6 0 12-5.4 12-12v-64c0-6.6-5.4-12-12-12z"/>
+			<a href="./index.php"><svg alt="Back Button Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm116-292H256v-70.9c0-10.7-13-16.1-20.5-8.5L121.2 247.5c-4.7 4.7-4.7 12.2 0 16.9l114.3 114.9c7.6 7.6 20.5 2.2 20.5-8.5V300h116c6.6 0 12-5.4 12-12v-64c0-6.6-5.4-12-12-12z"/>
+				<title>Back Button Icon</title>
 				<defs>
 					<linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
 						<stop offset="0%" style="stop-color:rgb(58,123,213);stop-opacity:1" />
