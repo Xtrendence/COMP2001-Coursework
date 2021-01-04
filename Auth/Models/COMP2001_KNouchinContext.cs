@@ -55,6 +55,8 @@ namespace Auth.Models
 
                 entity.Property(e => e.userId).HasColumnName("userID");
 
+                entity.Property(e => e.passwordId).HasColumnName("passwordID");
+
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.userId)
@@ -68,6 +70,8 @@ namespace Auth.Models
                 entity.Property(e => e.issueDate).HasColumnType("datetime");
 
                 entity.Property(e => e.userId).HasColumnName("userID");
+
+                entity.Property(e => e.sessionId).HasColumnName("sessionID");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
@@ -88,12 +92,12 @@ namespace Auth.Models
 
                 entity.Property(e => e.firstName)
                     .IsRequired()
-                    .HasMaxLength(64)
+                    .HasMaxLength(32)
                     .IsUnicode(false);
 
                 entity.Property(e => e.lastName)
                     .IsRequired()
-                    .HasMaxLength(64)
+                    .HasMaxLength(32)
                     .IsUnicode(false);
 
                 entity.Property(e => e.password)

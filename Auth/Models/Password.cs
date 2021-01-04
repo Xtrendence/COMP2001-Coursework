@@ -7,6 +7,7 @@ namespace Auth.Models
 {
     public partial class Password
     {
+        public int passwordId { get; set; }
         public int userId { get; set; }
         public string oldPassword { get; set; }
         public DateTime changeDate { get; set; }

@@ -1,6 +1,6 @@
 PUT http://web.socem.plymouth.ac.uk/COMP2001/KNouchin/Auth/user/5
 Content-Type: application/json
-api_key: FMFm33IEb0G5LWWY2i0YHQ==
+api_key: d7doDDgkyEqTuviyYEPi8w==
 
 {
 	"firstName":"Khodadad",

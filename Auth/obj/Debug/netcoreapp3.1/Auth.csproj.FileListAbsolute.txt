@@ -157,6 +157,5 @@ C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcorea
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
-C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.csprojAssemblyReference.cache
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.csproj.CoreCompileInputs.cache
 C:\Users\Xtrendence\Documents\GitHub\COMP2001-Coursework\Auth\obj\Debug\netcoreapp3.1\Auth.MvcApplicationPartsAssemblyInfo.cache
