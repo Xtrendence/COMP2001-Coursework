@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 		});
-		xhr.open("GET", "./fetch.php", true);
+		xhr.open("GET", "./libraries/", true);
 		xhr.send();
 	}
 

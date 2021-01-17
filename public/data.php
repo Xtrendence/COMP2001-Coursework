@@ -1,7 +1,7 @@
 <?php 
 	// Import the "Utils" class which contains a bunch of static helper functions. This just helps keep the code clean.
 	require("./utils.php"); 
-	$file = "./dataset.json";
+	$file = "./libraries/dataset.json";
 ?>
 <!DOCTYPE html>
 <html lang="en">
