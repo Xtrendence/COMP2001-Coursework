@@ -56,7 +56,7 @@
 						<a href="./data.php">Human Readable</a>
 					</div>
 					<div class="button-container">
-						<a href="./libraries/">JSON-LD</a>
+						<a href="../libraries/">JSON-LD</a>
 					</div>
 				</div>
 			</div>

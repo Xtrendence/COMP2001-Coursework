@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 		});
-		xhr.open("GET", "./libraries/", true);
+		xhr.open("GET", "../libraries/", true);
 		xhr.send();
 	}
 
