@@ -12,13 +12,13 @@ using Newtonsoft.Json.Linq;
 
 namespace Auth.Controllers
 {
-    [Route("user/")]
+    [Route("api/user/")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly COMP2001_KNouchinContext _context;
 
-        public UsersController(COMP2001_KNouchinContext context)
+        public UserController(COMP2001_KNouchinContext context)
         {
             _context = context;
         }
@@ -102,58 +102,36 @@ namespace Auth.Controllers
             // Create a new object that'll later contain data that'll be returned to the client in JSON format.
             dynamic response = new { };
 
-            // Get the value of the "api_key" header from the request.
-            string authHeader = this.Request.Headers["api_key"];
-
-            // If the header doesn't have a value, then the client isn't authorized to use the API.
-            if(authHeader != null)
+            try
             {
-                try
+                // Create the user account.
+                String result = DataAccess.Register(user, "Response");
+
+                this.Response.ContentType = "application/json";
+
+                // Convert the response from the Stored Procedure into an object.
+                dynamic parsed = JObject.Parse(result);
+                if(parsed["code"] == "200")
                 {
-                    // Use the value of the "api_key" header as a key to check whether or not it's verified.
-                    string authToken = HttpContext.Session.GetString(authHeader);
-                    if(authToken == "verified")
-                    {
-                        // Create the user account.
-                        String result = DataAccess.Register(user, "Response");
-
-                        this.Response.ContentType = "application/json";
-
-                        // Convert the response from the Stored Procedure into an object.
-                        dynamic parsed = JObject.Parse(result);
-                        if(parsed["code"] == "200")
-                        {
-                            // If the user was created, set the HTTP status code to 200, and return the UserID to the client.
-                            this.Response.StatusCode = 200;
-                            response = new { UserID = parsed["UserID"] };
-                        }
-                        else if(parsed["code"] == "208")
-                        {
-                            // If a user with the specified email already exists, set the status code to 208, and return a message telling the client what happened.
-                            this.Response.StatusCode = 208;
-                            response = new { message = "Call successful, but email already exists and so new entry not made" };
-                        }
-                        else
-                        {
-                            this.Response.StatusCode = 404;
-                            response = new { message = "Bad request" };
-                        }
-                    }
-                    else
-                    {
-                        this.Response.StatusCode = 401;
-                        response = new { message = "Access not authorized. Use an \"api_key\" header with a valid access token." };
-                    }
+                    // If the user was created, set the HTTP status code to 200, and return the UserID to the client.
+                    this.Response.StatusCode = 200;
+                    response = new { UserID = parsed["UserID"] };
                 }
-                catch(Exception e)
+                else if(parsed["code"] == "208")
                 {
-                    response = new { message = "Error: " + e.Message };
+                    // If a user with the specified email already exists, set the status code to 208, and return a message telling the client what happened.
+                    this.Response.StatusCode = 208;
+                    response = new { message = "Call successful, but email already exists and so new entry not made" };
+                }
+                else
+                {
+                    this.Response.StatusCode = 404;
+                    response = new { message = "Bad request" };
                 }
             }
-            else
+            catch(Exception e)
             {
-                this.Response.StatusCode = 401;
-                response = new { message = "Access not authorized. Use an \"api_key\" header with a valid access token." };
+                response = new { message = "Error: " + e.Message };
             }
 
             // Turn the "response" object into a JSON string, and return it to the client as a response.

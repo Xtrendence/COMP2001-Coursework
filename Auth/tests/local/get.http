@@ -1,4 +1,4 @@
-GET https://localhost:44327/user
+GET https://localhost:44327/api/user
 Content-Type: application/json
 Accept: application/json
 

@@ -1,7 +1,6 @@
-POST https://localhost:44327/user
+POST https://localhost:44327/api/user
 Content-Type: application/json
 Accept: application/json
-api_key: 2MX018IkPk6nhTXqHLQQMw==
 
 {
 	"firstName":"Khodadad",

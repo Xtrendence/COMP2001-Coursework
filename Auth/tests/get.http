@@ -1,4 +1,4 @@
-GET http://web.socem.plymouth.ac.uk/COMP2001/KNouchin/Auth/user/
+GET http://web.socem.plymouth.ac.uk/COMP2001/KNouchin/Auth/api/user/
 Content-Type: application/json
 Accept: application/json
 
