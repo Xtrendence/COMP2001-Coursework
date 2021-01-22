@@ -3,12 +3,14 @@ CREATE TABLE Users (
 	firstName VARCHAR(32) NOT NULL,
 	lastName VARCHAR(32) NOT NULL,
 	email NVARCHAR(320) NOT NULL UNIQUE,
-	password NVARCHAR(255) NOT NULL
+	password NVARCHAR(128) NOT NULL,
+	salt NVARCHAR(36)
 );
 CREATE TABLE Passwords (
 	passwordID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	userID INT NOT NULL FOREIGN KEY REFERENCES Users(userID) ON DELETE CASCADE,
-	oldPassword NVARCHAR(255) NOT NULL,
+	oldPassword NVARCHAR(128) NOT NULL,
+	salt NVARCHAR(36) NOT NULL,
 	changeDate DATETIME NOT NULL
 );
 CREATE TABLE Sessions (
@@ -17,12 +19,24 @@ CREATE TABLE Sessions (
 	issueDate DATETIME NOT NULL
 );
 
-CREATE PROCEDURE Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
+CREATE TRIGGER ChangedPassword ON Users AFTER UPDATE AS
+	IF UPDATE(password)
+		BEGIN
+			INSERT INTO Passwords (userID, oldPassword, salt, changeDate)
+			SELECT userID, password, salt, GETDATE()
+			FROM deleted
+		END
+GO
+
+CREATE VIEW LoginCount AS
+SELECT userID, COUNT(userID) AS "Total Logins" FROM Sessions GROUP BY userID
+
+CREATE PROCEDURE Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(128), @ResponseMessage NVARCHAR(MAX) OUTPUT) AS
 BEGIN
 	BEGIN TRANSACTION 
 		DECLARE @Error NVARCHAR(MAX);
 		DECLARE @UserID INT;
-		DECLARE @Max INT;  
+		DECLARE @Max INT;
 
 		BEGIN TRY 
 			SET @Error = 'Max: ' + CAST(@UserID AS NVARCHAR);
@@ -40,8 +54,10 @@ BEGIN
 						
 					DBCC CHECKIDENT(Users, reseed, @Max);
 
-					INSERT INTO Users (firstName, lastName, email, password)
-					VALUES (@FirstName, @LastName, @Email, @Password);
+					DECLARE @Salt UNIQUEIDENTIFIER = NEWID()
+
+					INSERT INTO Users (firstName, lastName, email, password, salt)
+					VALUES (@FirstName, @LastName, @Email, CONVERT(VARCHAR(128), HASHBYTES('SHA2_512', @Password + CAST(@Salt AS NVARCHAR(36))), 2), @Salt);
 
 					IF @@TRANCOUNT > 0
 						/* The user's newly generated ID can now be fetched from the table. */
@@ -67,17 +83,22 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255)) AS
+CREATE PROCEDURE ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(128)) AS
 BEGIN
 	DECLARE @UserID INT;
 	DECLARE @ReturnValue INT;
 	DECLARE @ValidEmail VARCHAR(320);
-	DECLARE @ValidPassword VARCHAR(255);
+	DECLARE @ValidPassword VARCHAR(128);
+	DECLARE @Salt NVARCHAR(36);
+	DECLARE @Hashed NVARCHAR(128);
 
 	SELECT @ValidEmail = email FROM Users WHERE email = @Email;
 	SELECT @ValidPassword = password FROM Users WHERE email = @Email;
+	SELECT @Salt = salt FROM Users WHERE email = @Email;
 
-	IF @ValidEmail = @Email AND @ValidPassword = @Password
+	SET @Hashed = CONVERT(VARCHAR(128), HASHBYTES('SHA2_512', @Password + CAST(@Salt AS NVARCHAR(36))), 2);
+
+	IF @ValidEmail = @Email AND @ValidPassword = @Hashed
 		BEGIN
 			SELECT @UserID = userID FROM Users WHERE email = @Email;
 			INSERT INTO Sessions (userID, issueDate)
@@ -93,7 +114,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255)) AS
+CREATE PROCEDURE UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(128)) AS
 BEGIN
 	BEGIN TRANSACTION 
 		DECLARE @Error NVARCHAR(MAX);
@@ -109,11 +130,14 @@ BEGIN
 				BEGIN
 					IF EXISTS(SELECT * FROM Users WHERE userID = @UserID)
 						BEGIN
+							DECLARE @Salt UNIQUEIDENTIFIER = NEWID()
+
 							UPDATE Users
 							SET firstName = @FirstName,
 								lastName = @LastName,
 								email = @Email,
-								password = @Password
+								password = CONVERT(VARCHAR(128), HASHBYTES('SHA2_512', @Password + CAST(@Salt AS NVARCHAR(36))), 2),
+								salt = @Salt
 							WHERE userID = @UserID;
 
 							IF @@TRANCOUNT > 0
@@ -176,18 +200,6 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER ChangedPassword ON Users AFTER UPDATE AS
-	IF UPDATE(password)
-		BEGIN
-			INSERT INTO Passwords (userID, oldPassword, changeDate)
-			SELECT userID, password, GETDATE()
-			FROM deleted
-		END
-GO
-
-CREATE VIEW LoginCount AS
-SELECT userID, COUNT(userID) AS "Total Logins" FROM Sessions GROUP BY userID
-
 /* To generate mock data, and test all the code above. */
 
 EXEC Register "John", "Smith", "john.smith@domain.com", "passw0rd", "Response";
@@ -227,7 +239,7 @@ EXEC DeleteUser 5;
 	So overall, 4 records in the Users table, 2 in the Passwords table, and 10 in the Sessions table.
 */
 
-/* Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255), @ResponseMessage NVARCHAR(MAX) */
-/* ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(255) */
-/* UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(255) */
+/* Register(@FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(128), @ResponseMessage NVARCHAR(MAX) */
+/* ValidateUser(@Email AS VARCHAR(320), @Password AS NVARCHAR(128) */
+/* UpdateUser(@UserID AS INT, @FirstName AS VARCHAR(32), @LastName AS VARCHAR(32), @Email AS NVARCHAR(320), @Password AS NVARCHAR(128) */
 /* DeleteUser(@UserID AS INT) */
