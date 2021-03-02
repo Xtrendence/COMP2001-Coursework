@@ -1,6 +1,6 @@
 # COMP2001 Coursework
 
-This repository contains the code for both Part 1 and Part 2 of the COMP2001 coursework. 
+This repository contains the code for both Part 1 and Part 2 of the COMP2001 coursework. This project got 98/100.
 
 ### Part 1
 
